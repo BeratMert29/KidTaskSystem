@@ -1,59 +1,110 @@
-# WebFrontend
+KidTaskSystem
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+A comprehensive task management and reward system designed for parents and teachers to help children develop good habits and learn responsibility through a gamified approach.
 
-## Development server
+Features
 
-To start a local development server, run:
+For Parents
+- Create and assign tasks to children
+- Set rewards and point values for tasks
+- Monitor task completion and progress
+- Approve or reject completed tasks
+- Manage wish lists and rewards
+- Track children's progress and achievements
 
-```bash
-ng serve
-```
+For Teachers
+- Create and assign educational tasks
+- Monitor student progress
+- Provide feedback on completed tasks
+- Collaborate with parents on student development
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+For Students
+- View assigned tasks
+- Mark tasks as complete
+- Earn points for completed tasks
+- Create and manage wish lists
+- Redeem points for rewards
+- Track personal progress
 
-## Code scaffolding
+Technology Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Frontend
+- Angular 19.2.3
+- TypeScript
+- HTML5/CSS3
+- Bootstrap for responsive design
 
-```bash
-ng generate component component-name
-```
+Backend
+- Spring Boot
+- Java
+- MySQL Database
+- RESTful API architecture
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Project Structure
 
-```bash
-ng generate --help
-```
+KidTaskSystem/
+├── backend/           # Spring Boot Backend
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   └── resources/
+│   │   └── test/
+│   └── pom.xml
+└── src/              # Angular Frontend
+    ├── app/
+    │   ├── components/
+    │   ├── services/
+    │   └── models/
+    └── assets/
 
-## Building
+Getting Started
 
-To build the project run:
+Prerequisites
+- Java JDK 17 or higher
+- Node.js 18 or higher
+- MySQL 8.0 or higher
+- Maven
+- Angular CLI
 
-```bash
-ng build
-```
+Backend Setup
+1. Navigate to the backend directory:
+   cd backend
+2. Configure your database settings in src/main/resources/application.properties
+3. Run the Spring Boot application:
+   ./mvnw spring-boot:run
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Frontend Setup
+1. Navigate to the project root:
+   cd KidTaskSystem
+2. Install dependencies:
+   npm install
+3. Start the development server:
+   ng serve
+4. Open your browser and navigate to http://localhost:4200
 
-## Running unit tests
+API Documentation
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+The backend provides RESTful APIs for:
+- User authentication and registration
+- Task management
+- Student progress tracking
+- Wish list management
+- Reward system
 
-```bash
-ng test
-```
+Detailed API documentation is available at /swagger-ui.html when running the backend server.
 
-## Running end-to-end tests
+Contributing
 
-For end-to-end (e2e) testing, run:
+1. Fork the repository
+2. Create your feature branch (git checkout -b feature/AmazingFeature)
+3. Commit your changes (git commit -m 'Add some AmazingFeature')
+4. Push to the branch (git push origin feature/AmazingFeature)
+5. Open a Pull Request
 
-```bash
-ng e2e
-```
+License
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Additional Resources
+Contact
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+For any questions or support, please open an issue in the GitHub repository.
