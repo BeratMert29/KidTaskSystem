@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>Student Wish List</h2>
+  
+  <!-- Wish List -->
+  <div class="wish-list">
+    <div class="wish-card" *ngFor="let wish of wishes">
+      <div class="wish-image">
+        <img [src]="wish.imageUrl" [alt]="wish.itemName">
+      </div>
+      <div class="wish-content">
+        <div *ngIf="isParent" class="student-info">
+          <span>Student: {{wish.studentModel && wish.studentModel.username ? wish.studentModel.username : 'Unknown Student'}}</span>
+        </div>
+        <h3>{{wish.itemName}}</h3>
+        <p class="description">{{wish.description}}</p>
+        <div class="wish-meta">
+          <div class="meta-item">
+            <span class="label">Points</span>
+            <span class="value">{{wish.points}}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Level</span>
+            <span class="value">{{wish.level}}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Price</span>
+            <span class="value">${{wish.price | number:'1.2-2'}}</span>
+          </div>
+        </div>
+        <div class="wish-status" [class]="wish.isApproved ? 'approved' : 'pending'">
+          {{wish.isApproved ? 'Approved' : 'Pending'}}
+          <span *ngIf="wish.approvedAt" class="approved-date">{{wish.approvedAt | date:'medium'}}</span>
+        </div>
+        <div class="wish-actions">
+          <button *ngIf="!wish.isApproved && wish.wishId && isStudent" (click)="removeFromWishlist(wish.wishId)" class="remove-btn">Remove</button>
+          <button *ngIf="isTeacher && !wish.isApproved && wish.wishId" (click)="approveWish(wish.wishId, 'teacher')" class="approve-btn">Approve</button>
+          <div *ngIf="isParent && !wish.isApproved && wish.wishId" class="parent-actions">
+            <button (click)="approveWish(wish.wishId, 'parent')" class="approve-btn">Approve</button>
+            <button (click)="rejectWish(wish.wishId)" class="reject-btn">Reject</button>
+          </div>
+          <button *ngIf="wish.isApproved && isStudent && wish.wishId" 
+                  (click)="purchaseWish(wish.wishId)" 
+                  class="purchase-btn"
+                  [disabled]="!studentPoints || studentPoints < wish.points">
+            Purchase
+          </button>
+          <p *ngIf="wish.isApproved && isStudent && studentPoints !== null && studentPoints < wish.points" 
+             class="error-message">
+            Not enough points
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

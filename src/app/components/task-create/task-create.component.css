@@ -1,0 +1,217 @@
+.task-create-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.task-form-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-list-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.form-control {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.form-control.is-invalid {
+  border-color: #e53e3e;
+}
+
+.error-message {
+  color: #e53e3e;
+  font-size: 0.875rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #4299e1;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #3182ce;
+}
+
+.btn-primary:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.btn-secondary:hover {
+  background: #cbd5e0;
+}
+
+.btn-danger {
+  background: #e53e3e;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #c53030;
+}
+
+.task-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.task-card {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.task-header h3 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1.25rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-pending .status-badge {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-completed .status-badge {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.status-approved .status-badge {
+  background: #bee3f8;
+  color: #2c5282;
+}
+
+.status-rejected .status-badge {
+  background: #fed7d7;
+  color: #822727;
+}
+
+.task-content {
+  color: #4a5568;
+  margin-bottom: 1rem;
+}
+
+.task-details {
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.messages {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.success-message {
+  background: #c6f6d5;
+  color: #22543d;
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.error-message {
+  background: #fed7d7;
+  color: #822727;
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .task-create-container {
+    grid-template-columns: 1fr;
+  }
+} 

@@ -1,0 +1,128 @@
+<div class="task-create-container">
+  <div class="task-form-section">
+    <h2>{{ isEditing ? 'Edit Task' : 'Create New Task' }}</h2>
+    
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-form">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input 
+          type="text" 
+          id="title" 
+          formControlName="title" 
+          class="form-control"
+          [class.is-invalid]="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+        <div class="error-message" *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+          <span *ngIf="taskForm.get('title')?.errors?.['required']">Title is required</span>
+          <span *ngIf="taskForm.get('title')?.errors?.['minlength']">Title must be at least 3 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          class="form-control"
+          [class.is-invalid]="taskForm.get('description')?.invalid && taskForm.get('description')?.touched"></textarea>
+        <div class="error-message" *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched">
+          <span *ngIf="taskForm.get('description')?.errors?.['required']">Description is required</span>
+          <span *ngIf="taskForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="reward">Reward</label>
+        <input 
+          type="text" 
+          id="reward" 
+          formControlName="reward" 
+          class="form-control"
+          [class.is-invalid]="taskForm.get('reward')?.invalid && taskForm.get('reward')?.touched">
+        <div class="error-message" *ngIf="taskForm.get('reward')?.invalid && taskForm.get('reward')?.touched">
+          <span *ngIf="taskForm.get('reward')?.errors?.['required']">Reward is required</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="deadline">Deadline</label>
+        <input 
+          type="date" 
+          id="deadline" 
+          formControlName="deadline" 
+          class="form-control"
+          [class.is-invalid]="taskForm.get('deadline')?.invalid && taskForm.get('deadline')?.touched">
+        <div class="error-message" *ngIf="taskForm.get('deadline')?.invalid && taskForm.get('deadline')?.touched">
+          <span *ngIf="taskForm.get('deadline')?.errors?.['required']">Deadline is required</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="duration">Duration (minutes) <span class="optional-label">(Optional)</span></label>
+        <input 
+          type="number" 
+          id="duration" 
+          formControlName="duration" 
+          class="form-control"
+          [class.is-invalid]="taskForm.get('duration')?.invalid && taskForm.get('duration')?.touched">
+      </div>
+
+      <div class="form-group">
+        <label for="assignedTo">Assign to Student</label>
+        <select 
+          id="assignedTo" 
+          formControlName="assignedTo" 
+          class="form-control"
+          [class.is-invalid]="taskForm.get('assignedTo')?.invalid && taskForm.get('assignedTo')?.touched">
+          <option value="">Select a student</option>
+          <option *ngFor="let student of students" [value]="student.id">
+            {{student.username}}
+          </option>
+        </select>
+        <div class="error-message" *ngIf="taskForm.get('assignedTo')?.invalid && taskForm.get('assignedTo')?.touched">
+          <span *ngIf="taskForm.get('assignedTo')?.errors?.['required']">Please select a student</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid || students.length === 0">
+          {{ isEditing ? 'Update Task' : 'Create Task' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="isEditing">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="task-list-section">
+    <h2>Your Tasks</h2>
+    
+    <div class="task-list">
+      <div *ngFor="let task of tasks" class="task-card" [ngClass]="getStatusClass(task.status)">
+        <div class="task-header">
+          <h3>{{ task.title }}</h3>
+          <span class="status-badge">{{ task.status }}</span>
+        </div>
+        
+        <div class="task-content">
+          <p>{{ task.description }}</p>
+          <div class="task-details">
+            <p><strong>Reward:</strong> {{ task.reward }}</p>
+            <p><strong>Deadline:</strong> {{ task.deadline | date }}</p>
+            <p><strong>Duration:</strong> {{ task.duration }} minutes</p>
+          </div>
+        </div>
+
+        <div class="task-actions">
+          <button class="btn btn-sm btn-primary" (click)="editTask(task)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteTask(task)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="messages">
+    <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </div>
+</div> 

@@ -1,0 +1,192 @@
+<div class="task-review-container">
+  <h2>Task Review</h2>
+  
+  <div class="task-list">
+    <div *ngFor="let task of tasks" class="task-card" [ngClass]="getStatusClass(task.status)" [attr.data-task-id]="task.id">
+      <div class="task-header">
+        <h3>{{ task.title || 'No Title' }}</h3>
+        <span class="status-badge">{{ getStatusLabel(task.status || 'pending') }}</span>
+      </div>
+      
+      <div class="task-content">
+        <p class="description">{{ task.description || 'No description available' }}</p>
+        
+        <div class="task-details">
+          <div class="detail-item">
+            <span class="label">Reward:</span>
+            <span class="value">{{ task.reward || 'Not specified' }}</span>
+          </div>
+          <div class="detail-item" *ngIf="task.deadline">
+            <span class="label">Deadline:</span>
+            <span class="value">{{ task.deadline | date:'MMM d, y' }}</span>
+          </div>
+          <div class="detail-item" *ngIf="task.duration">
+            <span class="label">Duration:</span>
+            <span class="value">{{ task.duration }} minutes</span>
+          </div>
+        </div>
+
+        <div class="task-actions">
+          <button class="btn btn-success" (click)="openReviewModal(task, 'approve')">Approve</button>
+          <button class="btn btn-danger" (click)="openReviewModal(task, 'reject')">Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="tasks.length === 0" class="no-tasks">
+    <p>No tasks awaiting review.</p>
+  </div>
+
+  <div class="messages">
+    <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </div>
+</div>
+
+<!-- Review Modal -->
+<div class="modal" *ngIf="showModal" [class.show]="showModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>{{ modalAction === 'approve' ? 'Approve Task' : 'Reject Task' }}</h3>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+    
+    <div class="task-summary">
+      <h4>{{ selectedTask?.title }}</h4>
+      <p>{{ selectedTask?.description }}</p>
+    </div>
+
+    <div class="rating-section" *ngIf="modalAction === 'approve'">
+      <span class="label">Rate this task:</span>
+      <app-star-rating
+        [rating]="selectedRating"
+        (ratingChange)="onRatingChange($event)">
+      </app-star-rating>
+    </div>
+
+    <div class="rejection-reason" *ngIf="modalAction === 'reject'">
+      <label for="rejectionReason">Reason for rejection:</label>
+      <textarea
+        id="rejectionReason"
+        [(ngModel)]="rejectionReason"
+        placeholder="Please provide a reason for rejection">
+      </textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="cancel-btn" (click)="closeModal()">Cancel</button>
+      <button 
+        class="submit-btn" 
+        [class.btn-success]="modalAction === 'approve'"
+        [class.btn-danger]="modalAction === 'reject'"
+        (click)="submitReview()">
+        {{ modalAction === 'approve' ? 'Approve' : 'Reject' }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+.task-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(80, 112, 255, 0.07);
+  padding: 2rem 2.2rem 2.2rem 2.2rem;
+  transition: box-shadow 0.18s;
+  z-index: 0;
+  margin-bottom: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.task-card.pending::before {
+  background-color: #F59E0B;
+}
+.task-card.awaiting_approval::before {
+  background-color: #3B82F6;
+}
+.task-card.completed::before {
+  background-color: #10B981;
+}
+.task-card.approved::before {
+  background-color: #6366F1;
+}
+.task-card.rejected::before {
+  background-color: #EF4444;
+}
+
+.task-card:hover {
+  box-shadow: 0 4px 12px rgba(80, 112, 255, 0.10);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.task-card.pending .status-badge {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+.task-card.awaiting_approval .status-badge {
+  background-color: #DBEAFE;
+  color: #1E40AF;
+}
+.task-card.completed .status-badge {
+  background-color: #D1FAE5;
+  color: #065F46;
+}
+.task-card.approved .status-badge {
+  background-color: #E0E7FF;
+  color: #3730A3;
+}
+.task-card.rejected .status-badge {
+  background-color: #FEE2E2;
+  color: #991B1B;
+}
+
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.task-actions button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.task-actions .btn-success {
+  background-color: #10B981;
+  color: white;
+  border: none;
+}
+
+.task-actions .btn-danger {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+}
+
+.task-actions button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+</style> 

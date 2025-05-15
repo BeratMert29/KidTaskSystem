@@ -1,0 +1,41 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Welcome, {{ currentUser?.username }}</h1>
+    <div class="user-info">
+      <p>Role: {{ currentUser?.role }}</p>
+      <p>Points: {{ totalPoints }}</p>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="dashboard-card tasks-card">
+      <h2>My Tasks</h2>
+      <p>View and complete your assigned tasks</p>
+      <a *ngIf="isStudent()" routerLink="/tasks" class="card-link">View Tasks</a>
+    </div>
+
+    <div class="dashboard-card shop-card">
+      <h2>Reward Shop</h2>
+      <p>Spend your points on rewards</p>
+      <a routerLink="/shop" class="card-link">Visit Shop</a>
+    </div>
+
+    <div class="dashboard-card approved-wishes-card">
+      <h2>Approved Wishes</h2>
+      <p>View and purchase your approved wishes</p>
+      <a *ngIf="isStudent()" routerLink="/approved-wishes" class="card-link">View Approved Wishes</a>
+    </div>
+
+    <div class="dashboard-card create-task-card">
+      <h2>Create Task</h2>
+      <p>Create a new task for students</p>
+      <a *ngIf="isTeacherOrParent()" routerLink="/create-task" class="card-link">Create Task</a>
+    </div>
+
+    <div class="dashboard-card review-tasks-card">
+      <h2>Review Tasks</h2>
+      <p>Review completed tasks</p>
+      <a *ngIf="isTeacherOrParent()" routerLink="/review-tasks" class="card-link">Review Tasks</a>
+    </div>
+  </div>
+</div> 

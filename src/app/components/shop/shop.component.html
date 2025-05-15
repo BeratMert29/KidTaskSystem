@@ -1,0 +1,62 @@
+<div class="shop-container">
+  <h1 class="shop-title">Reward Shop</h1>
+  <p class="shop-description">
+    {{ currentUserRole === 'student' ? 
+      'Browse available rewards and add items to your wishlist!' : 
+      'Review and approve student wishlist items.' }}
+  </p>
+  
+  <!-- Feedback messages -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+  
+  <div class="products-grid">
+    <div class="product-card" *ngFor="let product of products" [attr.data-points]="product.points">
+      <div class="product-image">
+        <img [src]="product.image" [alt]="product.name" (error)="handleImageError($event)">
+        <div class="product-status" *ngIf="!product.isApproved">
+          Pending Approval
+        </div>
+      </div>
+      <div class="product-info">
+        <h3>{{ product.name }}</h3>
+        <p class="description">{{ product.description }}</p>
+        <div class="product-details">
+          <div class="price">
+            <span class="label">Price</span>
+            <span class="value">${{ product.price }}</span>
+          </div>
+          <div class="points">
+            <span class="label">Points</span>
+            <span class="value">{{ product.points }} (Level {{ product.level }})</span>
+          </div>
+        </div>
+        <div class="product-actions">
+          <ng-container *ngIf="currentUserRole === 'student'">
+            <button 
+              class="wishlist-button" 
+              [class.added]="product.isInWishlist"
+              [disabled]="product.isInWishlist || loading"
+              (click)="addToWishlist(product)">
+              <span *ngIf="!loading">
+              {{ product.isInWishlist ? 'Added to Wishlist' : 'Add to Wishlist' }}
+              </span>
+              <span *ngIf="loading">Adding...</span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="isApprover()">
+            <button class="approve-btn" 
+                    *ngIf="!product.isApproved"
+                    (click)="approveProduct(product)">
+              Approve
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

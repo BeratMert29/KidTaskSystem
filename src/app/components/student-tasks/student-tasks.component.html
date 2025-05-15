@@ -1,0 +1,62 @@
+<div class="student-tasks-container">
+  <div class="dashboard-header">
+    <h2>My Tasks</h2>
+  </div>
+
+  <div class="messages">
+    <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </div>
+
+  <div class="task-list" *ngIf="tasks.length > 0">
+    <div *ngFor="let task of tasks" class="task-card" [ngClass]="getStatusClass(task.status)" [attr.data-task-id]="task.id">
+      <div class="task-header">
+        <h3>{{ task.title || 'No Title' }}</h3>
+        <span class="status-badge">{{ getStatusLabel(task.status || 'pending') }}</span>
+      </div>
+
+      <div class="task-content">
+        <p class="description">{{ task.description || 'No description available' }}</p>
+        
+        <div class="task-details">
+          <div class="detail-item">
+            <span class="label">Reward:</span>
+            <span class="value">{{ task.reward || 'Not specified' }}</span>
+          </div>
+          
+          <div class="detail-item" *ngIf="task.deadline">
+            <span class="label">Deadline:</span>
+            <span class="value">{{ task.deadline | date:'MMM d, y' }}</span>
+          </div>
+          
+          <div class="detail-item" *ngIf="task.duration">
+            <span class="label">Duration:</span>
+            <span class="value">{{ task.duration }} minutes</span>
+          </div>
+        </div>
+
+        <div class="task-rating" *ngIf="task.rating && task.rating > 0">
+          <span class="label">Rating:</span>
+          <div class="stars">
+            <span *ngFor="let star of getRatingStars(task.rating)" class="star">★</span>
+            <span *ngFor="let star of getEmptyStars(task.rating)" class="empty-star">☆</span>
+          </div>
+        </div>
+
+        <div class="task-actions">
+          <button 
+            class="btn btn-primary" 
+            (click)="completeTask(task)"
+            *ngIf="canCompleteTask(task)">
+            Mark as Completed
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="tasks.length === 0 && !errorMessage">
+    <p>No tasks assigned to you yet.</p>
+    <p class="suggestion">Check back later for new assignments!</p>
+  </div>
+</div> 

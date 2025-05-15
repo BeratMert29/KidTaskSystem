@@ -1,0 +1,108 @@
+<div class="student-dashboard">
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1>Student Dashboard</h1>
+      <div class="task-stats">
+        <div class="stat-card">
+          <div class="stat-icon task-icon">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <div class="stat-info">
+            <h4>Completed Tasks</h4>
+            <p class="stat-value">{{ completedTaskCount }}</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon wish-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="stat-info">
+            <h4>My Wishes</h4>
+            <p class="stat-value">{{ wishCount }}</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon approved-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-info">
+            <h4>Approved Wishes</h4>
+            <p class="stat-value">{{ approvedWishCount }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <div class="task-overview">
+      <h2>Recent Tasks</h2>
+      <div class="task-list" *ngIf="tasks.length > 0">
+        <div *ngFor="let task of tasks.slice(0, 5)" class="task-card" [ngClass]="task.status">
+          <div class="task-header">
+            <h3>{{ task.title }}</h3>
+            <span class="status-badge">{{ task.status }}</span>
+          </div>
+          <div class="task-content">
+            <p>{{ task.description }}</p>
+            <div class="task-details">
+              <p><strong>Reward:</strong> {{ task.reward }}</p>
+              <p><strong>Deadline:</strong> {{ task.deadline | date }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="view-all-link">
+          <a routerLink="/tasks" class="btn btn-primary">View All Tasks</a>
+        </div>
+      </div>
+      <div class="empty-state" *ngIf="tasks.length === 0">
+        <p>No tasks assigned yet.</p>
+      </div>
+    </div>
+
+    <div class="shop-section">
+      <div class="shop-header">
+        <h2>Reward Shop</h2>
+        <div class="points-display">
+          <div class="points-icon">🎯</div>
+          <div class="points-content">
+            <span class="points-label">Your Points</span>
+            <span class="points-value">{{ totalPoints || 0 }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="shop-items">
+        <div class="shop-item">
+          <div class="item-icon">🎮</div>
+          <div class="item-details">
+            <h3>Game Time</h3>
+            <p>30 minutes of extra game time</p>
+            <div class="item-price">50 points</div>
+          </div>
+          <button class="btn btn-primary" [disabled]="totalPoints < 50">Redeem</button>
+        </div>
+        
+        <div class="shop-item">
+          <div class="item-icon">🍕</div>
+          <div class="item-details">
+            <h3>Pizza Party</h3>
+            <p>Pizza for the whole class</p>
+            <div class="item-price">200 points</div>
+          </div>
+          <button class="btn btn-primary" [disabled]="totalPoints < 200">Redeem</button>
+        </div>
+        
+        <div class="shop-item">
+          <div class="item-icon">🎁</div>
+          <div class="item-details">
+            <h3>Special Gift</h3>
+            <p>Choose your own reward</p>
+            <div class="item-price">100 points</div>
+          </div>
+          <button class="btn btn-primary" [disabled]="totalPoints < 100">Redeem</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

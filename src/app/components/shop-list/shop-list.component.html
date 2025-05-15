@@ -1,0 +1,31 @@
+<div class="shop-list-container">
+  <h2>My Shop List</h2>
+  <div class="wish-list">
+    <div class="wish-card" *ngFor="let wish of shoplist">
+      <div class="wish-image">
+        <img [src]="wish.imageUrl" [alt]="wish.itemName">
+      </div>
+      <div class="wish-content">
+        <h3>{{wish.itemName}}</h3>
+        <p class="description">{{wish.description}}</p>
+        <div class="wish-meta">
+          <div class="meta-item">
+            <span class="label">Points</span>
+            <span class="value">{{wish.points}}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Level</span>
+            <span class="value">{{wish.level}}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Price</span>
+            <span class="value">${{wish.price | number:'1.2-2'}}</span>
+          </div>
+        </div>
+        <div class="wish-actions">
+          <button *ngIf="wish.wishId" (click)="removeFromShoplist(wish.wishId)" class="remove-btn">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

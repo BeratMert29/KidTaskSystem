@@ -1,0 +1,404 @@
+.student-tasks-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+h2 {
+  color: #1F2937;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  position: relative;
+  padding-left: 12px;
+}
+
+h2:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(to bottom, #6366F1, #F472B6);
+  border-radius: 4px;
+}
+
+.task-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.task-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E5E7EB;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #E5E7EB;
+  transition: all 0.3s ease;
+}
+
+.task-card.pending::before {
+  background: #F59E0B;
+}
+
+.task-card.awaiting_approval::before {
+  background: #3B82F6;
+}
+
+.task-card.completed::before {
+  background: #10B981;
+}
+
+.task-card.approved::before {
+  background: #6366F1;
+}
+
+.task-card.rejected::before {
+  background: #EF4444;
+}
+
+.task-card.status-changing {
+  animation: statusChangePulse 1s ease-in-out;
+}
+
+@keyframes statusChangePulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Task status styles */
+.task-card.pending {
+  border-left: 4px solid #ffc107; /* Yellow for pending */
+  transition: border-left-color 0.3s ease;
+}
+
+.task-card.awaiting_approval {
+  border-left: 4px solid #17a2b8; /* Light blue for awaiting approval */
+  transition: border-left-color 0.3s ease;
+}
+
+.task-card.completed {
+  border-left: 4px solid #28a745; /* Green for completed */
+  transition: border-left-color 0.3s ease;
+}
+
+.task-card.approved {
+  border-left: 4px solid #007bff; /* Blue for approved */
+  transition: border-left-color 0.3s ease;
+}
+
+.task-card.rejected {
+  border-left: 4px solid #dc3545; /* Red for rejected */
+  transition: border-left-color 0.3s ease;
+}
+
+/* Status badge colors */
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.task-card.pending .status-badge {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.task-card.awaiting_approval .status-badge {
+  background: #EFF6FF;
+  color: #1D4ED8;
+}
+
+.task-card.completed .status-badge {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.task-card.approved .status-badge {
+  background: #EEF2FF;
+  color: #4F46E5;
+}
+
+.task-card.rejected .status-badge {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.task-header h3 {
+  color: #1F2937;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.task-content {
+  color: #4B5563;
+}
+
+.description {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.task-details {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #F9FAFB;
+  border-radius: 12px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.value {
+  color: #1F2937;
+  font-weight: 600;
+}
+
+.task-rating {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #F9FAFB;
+  border-radius: 12px;
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.star {
+  color: #F59E0B;
+  font-size: 1.25rem;
+}
+
+.empty-star {
+  color: #E5E7EB;
+  font-size: 1.25rem;
+}
+
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #E5E7EB;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6366F1, #4F46E5);
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(99, 102, 241, 0.3);
+}
+
+.messages {
+  margin-bottom: 2rem;
+}
+
+.success-message {
+  background: #D1FAE5;
+  color: #065F46;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #10B981;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+}
+
+.error-message {
+  background: #FEE2E2;
+  color: #991B1B;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #EF4444;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #F9FAFB;
+  border-radius: 16px;
+  border: 2px dashed #E5E7EB;
+  margin-top: 2rem;
+}
+
+.empty-state p {
+  color: #6B7280;
+  margin: 0;
+}
+
+.empty-state p:first-child {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.suggestion {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.dashboard-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #E5E7EB;
+}
+
+.dashboard-header h2 {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E5E7EB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 150px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-label {
+  color: #6B7280;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  color: #1F2937;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366F1, #4F46E5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .student-tasks-container {
+    padding: 1rem;
+  }
+
+  .dashboard-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .task-card {
+    padding: 1rem;
+  }
+
+  .task-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .task-actions {
+    justify-content: center;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-stats {
+    width: 100%;
+  }
+
+  .stat-card {
+    flex: 1;
+    min-width: auto;
+  }
+} 

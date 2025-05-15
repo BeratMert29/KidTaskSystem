@@ -1,0 +1,48 @@
+<div class="parent-dashboard">
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1>Parent Dashboard</h1>
+      <div class="user-info">
+        <p>Welcome, {{ currentUser?.username }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <!-- Task Management Section -->
+    <div class="dashboard-section">
+      <h2>Task Management</h2>
+      <div class="task-stats">
+        <div class="stat-card">
+          <span class="stat-label">Pending Tasks</span>
+          <span class="stat-value">{{ pendingTasks }}</span>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <a routerLink="/create-task" class="btn btn-primary">Create Task</a>
+        <a routerLink="/review-tasks" class="btn btn-secondary">Review Tasks</a>
+      </div>
+    </div>
+
+    <!-- Student Wishlist Section -->
+    <div class="dashboard-section">
+      <h2>Student Wishlist</h2>
+      <div class="wishlist-container" *ngIf="wishlistItems.length > 0">
+        <div *ngFor="let item of wishlistItems" class="wishlist-item">
+          <div class="item-details">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.description }}</p>
+            <p class="points-required">Points Required: {{ item.pointsRequired }}</p>
+          </div>
+          <div class="item-actions">
+            <button (click)="approveWishlistItem(item.id)" class="btn btn-success">Approve</button>
+            <button (click)="rejectWishlistItem(item.id)" class="btn btn-danger">Reject</button>
+          </div>
+        </div>
+      </div>
+      <div class="empty-state" *ngIf="wishlistItems.length === 0">
+        <p>No wishlist items pending approval.</p>
+      </div>
+    </div>
+  </div>
+</div> 

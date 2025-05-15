@@ -1,0 +1,64 @@
+<div class="register-container">
+  <div class="register-form">
+    <h2>Register</h2>
+    
+    <div class="form-group">
+      <label for="userType">I am a:</label>
+      <select id="userType" [(ngModel)]="userType" name="userType" class="form-control">
+        <option value="student">Student</option>
+        <option value="parent">Parent</option>
+        <option value="teacher">Teacher</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input 
+        type="text" 
+        id="username" 
+        [(ngModel)]="username" 
+        name="username" 
+        class="form-control" 
+        required
+        placeholder="Enter your username">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input 
+        type="password" 
+        id="password" 
+        [(ngModel)]="password" 
+        name="password" 
+        class="form-control" 
+        required
+        placeholder="Enter your password">
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password:</label>
+      <input 
+        type="password" 
+        id="confirmPassword" 
+        [(ngModel)]="confirmPassword" 
+        name="confirmPassword" 
+        class="form-control" 
+        required
+        placeholder="Confirm your password">
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <button (click)="onSubmit()" class="btn btn-primary">Register</button>
+    
+    <div class="login-link">
+      Already have an account? <a routerLink="/login">Login here</a>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,105 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Please fill in your details to register</p>
+
+    <!-- User Type Selection -->
+    <div class="user-type-selector">
+      <button 
+        [class.active]="userType === 'student'"
+        (click)="onUserTypeChange('student')">
+        Student
+      </button>
+      <button 
+        [class.active]="userType === 'parent'"
+        (click)="onUserTypeChange('parent')">
+        Parent
+      </button>
+      <button 
+        [class.active]="userType === 'teacher'"
+        (click)="onUserTypeChange('teacher')">
+        Teacher
+      </button>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          formControlName="username"
+          class="form-control" 
+          placeholder="Choose a username">
+        <div class="error-message" *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+          <span *ngIf="registerForm.get('username')?.errors?.['required']">Username is required</span>
+          <span *ngIf="registerForm.get('username')?.errors?.['minlength']">Username must be at least 3 characters</span>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password"
+          class="form-control" 
+          placeholder="Choose a password">
+        <div class="error-message" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <!-- Student Search (for Parent/Teacher) -->
+      <div class="form-group" *ngIf="userType !== 'student'">
+        <label for="studentSearch">Find Student</label>
+        <div class="search-container">
+          <input 
+            type="text" 
+            id="studentSearch"
+            [(ngModel)]="searchTerm"
+            [ngModelOptions]="{standalone: true}"
+            (input)="onSearchChange($any($event.target).value)"
+            class="form-control" 
+            placeholder="Type student username to search">
+          
+          <!-- Search Results Dropdown -->
+          <div class="search-results" *ngIf="filteredStudents.length > 0 && searchTerm">
+            <div 
+              *ngFor="let student of filteredStudents" 
+              class="search-result-item"
+              (click)="selectStudent(student)">
+              {{student.username}}
+            </div>
+          </div>
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('studentId')?.invalid && registerForm.get('studentId')?.touched">
+          <span *ngIf="registerForm.get('studentId')?.errors?.['required']">Please select a student</span>
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Success Message -->
+      <div class="success-message" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="registerForm.invalid">
+        Register
+      </button>
+    </form>
+
+    <p class="login-link">Already have an account? <a routerLink="/login">Login</a></p>
+  </div>
+</div> 

@@ -1,0 +1,24 @@
+<div class="wishes-container">
+  <h2>My Wishes</h2>
+  <div class="wishes-grid">
+    <div class="wish-card" *ngFor="let wish of wishes">
+      <div class="wish-image">
+        <img [src]="wish.imageUrl" [alt]="wish.itemName">
+      </div>
+      <div class="wish-details">
+        <h3>{{wish.itemName}}</h3>
+        <p>{{wish.description}}</p>
+        <div class="wish-meta">
+          <span>Points: {{wish.points}}</span>
+          <span>Level: {{wish.level}}</span>
+          <span>Price: ${{wish.price.toFixed(2)}}</span>
+        </div>
+        <div class="wish-status">
+          <span [class]="wish.isApproved ? 'approved' : 'pending'">
+            {{wish.isApproved ? 'Approved' : 'Pending'}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
